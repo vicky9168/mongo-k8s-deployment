@@ -6,7 +6,7 @@ This project contains Kubernetes manifests to deploy **MongoDB (database)** and 
 
 ## 🖼️ Architecture Diagram
 
-<img width="800" height="800" alt="img1" src="https://github.com/user-attachments/assets/b02e6723-c85b-42d0-b279-a064850b733c" />
+<img width="1232" height="800" alt="img1" src="https://github.com/user-attachments/assets/b02e6723-c85b-42d0-b279-a064850b733c" />
 
 ---
 
