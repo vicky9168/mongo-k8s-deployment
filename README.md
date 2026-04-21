@@ -1,57 +1,128 @@
-🗄️ MongoDB + Mongo Express on Kubernetes
+# 🗄️ MongoDB + Mongo Express Kubernetes Deployment
 
-A Kubernetes project that deploys MongoDB (database) and Mongo Express (web UI) using Secrets, ConfigMaps, and Services.
+This project contains Kubernetes manifests to deploy **MongoDB (database)** and **Mongo Express (web UI)** using **Secrets, ConfigMaps, and Services**.
 
-🖼️ Architecture Diagram
+---
 
-![Uploading img1.png…]()
+## 🖼️ Architecture Diagram
 
-🚀 What This Project Does
-Deploys MongoDB as backend database
-Deploys Mongo Express as frontend UI
-Uses Secret for secure credentials
-Uses ConfigMap for database configuration
-Exposes application using LoadBalancer Service
-🧩 Components
-🔹 MongoDB
-Internal database
-Uses Secret for authentication
-Exposed via ClusterIP Service (internal only)
-🔹 Mongo Express
-Web-based MongoDB UI
-Connects using:
-Secret (username/password)
-ConfigMap (MongoDB service name)
-Exposed externally via LoadBalancer Service
-📂 Project Files
-mongodb-secret.yaml → Stores credentials
-mongo.yaml → MongoDB Deployment + Service
-mongo-configmap.yaml → DB configuration
-mongo-express.yaml → Mongo Express setup
-⚙️ Setup
+<img width="1536" height="1024" alt="img1" src="https://github.com/user-attachments/assets/b02e6723-c85b-42d0-b279-a064850b733c" />
+
+
+---
+
+## 🚀 Components
+
+### 🔹 MongoDB Deployment: `mongodb-deployment`
+
+* Runs MongoDB database in a Pod  
+* Uses credentials from **Secret**  
+* Label: `app=mongodb`  
+
+### 🔹 Mongo Express Deployment: `mongo-express-deployment`
+
+* Runs Mongo Express web UI  
+* Connects to MongoDB using:
+  * Secret (username/password)  
+  * ConfigMap (database URL)  
+* Label: `app=mongo-express`  
+
+### 🔹 Services
+
+* **mongodb-service**
+  * Type: `ClusterIP`  
+  * Used for internal communication  
+
+* **mongo-express-service**
+  * Type: `LoadBalancer`  
+  * Exposes application externally  
+
+---
+
+## 📂 Files
+
+* `mongodb-secret.yaml` → Stores DB credentials  
+* `mongo.yaml` → MongoDB Deployment + Service  
+* `mongo-configmap.yaml` → Database configuration  
+* `mongo-express.yaml` → Mongo Express Deployment + Service  
+
+---
+
+## ⚙️ Prerequisites
+
+* Kubernetes cluster (EKS / Minikube / Kops)  
+* `kubectl` installed and configured  
+* Internet access to pull Docker images  
+
+---
+
+## 📦 Deployment Steps
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone <your-repo-url>
+cd <repo-name>
+```
+
+### 2️⃣ Apply Kubernetes manifests
+
+```bash
 kubectl apply -f mongodb-secret.yaml
 kubectl apply -f mongo.yaml
 kubectl apply -f mongo-configmap.yaml
 kubectl apply -f mongo-express.yaml
-🔍 Verify
+```
+
+### 3️⃣ Verify resources
+
+```bash
 kubectl get pods
 kubectl get svc
 kubectl get all
 kubectl get configmap
 kubectl get secret
-🌐 Access Application
+```
+
+---
+
+## 🌐 Access Application
+
+Get external IP:
+
+```bash
 kubectl get svc mongo-express-service
+```
 
-👉 Open in browser:
+Then access:
 
+```
 http://<EXTERNAL-IP>:8081
-🔁 Application Flow
+```
+
+---
+
+## 🔁 Application Flow
+
+```
 Browser → LoadBalancer → Mongo Express → MongoDB Service → MongoDB
-⚠️ Notes
-MongoDB is not exposed publicly (ClusterIP)
-Mongo Express is exposed using LoadBalancer
-In local setups (Minikube / Kops), EXTERNAL-IP may stay pending
-Since you are using Kops, ensure:
-Proper cloud provider setup (AWS ELB)
-IAM permissions are configured
-Otherwise, consider using NodePort for testing
+```
+
+---
+
+## ⚠️ Important Notes
+
+* MongoDB is **not exposed publicly** (ClusterIP)  
+* Mongo Express is exposed using **LoadBalancer**  
+* In local setups (**Minikube / Kops**), **EXTERNAL-IP may stay pending**  
+
+Since you are using **Kops**, ensure:
+
+* Cloud provider (AWS ELB) is properly configured  
+* IAM permissions are set correctly  
+
+👉 Otherwise, use **NodePort** or `kubectl port-forward` for testing  
+
+---
+
+---
