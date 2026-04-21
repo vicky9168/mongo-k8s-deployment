@@ -11,13 +11,26 @@ This project contains Kubernetes manifests to deploy **MongoDB (database)** and 
 
 ---
 
+---
+
+## 🎯 What This Project Does
+
+* Deploys MongoDB as backend database
+* Deploys Mongo Express as frontend UI
+* Uses Secret for secure credentials
+* Uses ConfigMap for database configuration
+* Exposes application using LoadBalancer Service
+
+
+---
+
 ## 🚀 Components
 
 ### 🔹 MongoDB Deployment: `mongodb-deployment`
 
 * Runs MongoDB database in a Pod  
 * Uses credentials from **Secret**  
-* Label: `app=mongodb`  
+* Exposed via ClusterIP Service (internal only 
 
 ### 🔹 Mongo Express Deployment: `mongo-express-deployment`
 
@@ -25,7 +38,7 @@ This project contains Kubernetes manifests to deploy **MongoDB (database)** and 
 * Connects to MongoDB using:
   * Secret (username/password)  
   * ConfigMap (database URL)  
-* Label: `app=mongo-express`  
+* Exposed externally via LoadBalancer Service  
 
 ### 🔹 Services
 
@@ -122,7 +135,5 @@ Since you are using **Kops**, ensure:
 * IAM permissions are set correctly  
 
 👉 Otherwise, use **NodePort** or `kubectl port-forward` for testing  
-
----
 
 ---
