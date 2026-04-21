@@ -6,10 +6,7 @@ This project contains Kubernetes manifests to deploy **MongoDB (database)** and 
 
 ## 🖼️ Architecture Diagram
 
-<img width="1536" height="1024" alt="img1" src="https://github.com/user-attachments/assets/b02e6723-c85b-42d0-b279-a064850b733c" />
-
-
----
+<img width="800" height="800" alt="img1" src="https://github.com/user-attachments/assets/b02e6723-c85b-42d0-b279-a064850b733c" />
 
 ---
 
@@ -30,7 +27,7 @@ This project contains Kubernetes manifests to deploy **MongoDB (database)** and 
 
 * Runs MongoDB database in a Pod  
 * Uses credentials from **Secret**  
-* Exposed via ClusterIP Service (internal only 
+* Exposed via ClusterIP Service (internal only)
 
 ### 🔹 Mongo Express Deployment: `mongo-express-deployment`
 
